@@ -5,9 +5,48 @@ Florian Walcher, Matrikelnummer: 3320185, st156818@stud.uni-stuttgart.de
 PSE Übungsblatt 8
 
 Aufgabe 1
-a)→
+a)
+Postanschrift = Name "\n" Straße " " Hausnummer "\n" Postleitzahl " " Städtename "\n" [Land];
+Name = (Personenname|Firmenname);
+Personenname = {Vorname} " " Nachname;
+Vorname = {Buchstabe};
+Nachname = {Buchstabe};
+Buchstabe = ("a"|"b"|"c"|"d"|"e"|"f"|"g"|"h"|"i"|"j"|"k"|"l"|"m"|"n"|"o"|"p"|"q"|"r"|"s"|"t"|"u"|"v"|"w"|"x"|"y"|"z"|"ä"|"ö"|"ü"|"ß"|"é"|"è"|"à"|" "|"-");
+Firmenname = {Buchstabe};
+Straße = {Buchstabe};
+Hausnummer = ZifferOhneNull{ZifferMitNull};
+ZifferOhneNull = ("1"|"2"|"3"|"4"|"5"|"6"|"7"|"8"|"9");
+ZifferMitNull = (ZifferOhneNull|"0");
+Postleitzahl = ZifferMitNull ZifferMitNull ZifferMitNull ZifferMitNull ZifferMitNull;
+Städtename = {Buchstabe};
+Land = {Buchstabe};
+
 b)
+Term
+Term "*" Term
+Var "*" Term
+"x" "*" Term
+"x" "*" "(" Term ")"
+"x" "*" "(" Term "+" Term ")"
+"x" "*" "(" Var "+" Term ")"
+"x" "*" "(" "x" "+" Term ")"
+"x" "*" "(" "x" "+" Term "*" Term")"
+"x" "*" "(" "x" "+" Konst "*" Term")"
+"x" "*" "(" "x" "+" Zahl "*" Term")"
+"x" "*" "(" "x" "+" Zahl Ziffer "*" Term")"
+"x" "*" "(" "x" "+" Ziffer Ziffer "*" Term")"
+"x" "*" "(" "x" "+" "2" Ziffer "*" Term")"
+"x" "*" "(" "x" "+" "2" "5" "*" Term")"
+"x" "*" "(" "x" "+" "2" "5" "*" Term")"
+"x" "*" "(" "x" "+" "2" "5" "*" "(" Term ")" ")"
+"x" "*" "(" "x" "+" "2" "5" "*" "(" Term "-" Term ")" ")"
+"x" "*" "(" "x" "+" "2" "5" "*" "(" Konst "-" Term ")" ")"
+"x" "*" "(" "x" "+" "2" "5" "*" "(" "a" "-" Term ")" ")"
+"x" "*" "(" "x" "+" "2" "5" "*" "(" "a" "-" Konst ")" ")"
+"x" "*" "(" "x" "+" "2" "5" "*" "(" "a" "-" "b" ")" ")"
+
 c)
+S = ("a"|"a"S"a"|S"a");
 
 Aufgabe 2
 a)
