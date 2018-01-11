@@ -22,34 +22,18 @@ Städtename = {Buchstabe};
 Land = {Buchstabe};
 
 b)
-Term
-Term "*" Term
-Var "*" Term
-"x" "*" Term
-"x" "*" "(" Term ")"
-"x" "*" "(" Term "+" Term ")"
-"x" "*" "(" Var "+" Term ")"
-"x" "*" "(" "x" "+" Term ")"
-"x" "*" "(" "x" "+" Term "*" Term")"
-"x" "*" "(" "x" "+" Konst "*" Term")"
-"x" "*" "(" "x" "+" Zahl "*" Term")"
-"x" "*" "(" "x" "+" Zahl Ziffer "*" Term")"
-"x" "*" "(" "x" "+" Ziffer Ziffer "*" Term")"
-"x" "*" "(" "x" "+" "2" Ziffer "*" Term")"
-"x" "*" "(" "x" "+" "2" "5" "*" Term")"
-"x" "*" "(" "x" "+" "2" "5" "*" Term")"
-"x" "*" "(" "x" "+" "2" "5" "*" "(" Term ")" ")"
-"x" "*" "(" "x" "+" "2" "5" "*" "(" Term "-" Term ")" ")"
-"x" "*" "(" "x" "+" "2" "5" "*" "(" Konst "-" Term ")" ")"
-"x" "*" "(" "x" "+" "2" "5" "*" "(" "a" "-" Term ")" ")"
-"x" "*" "(" "x" "+" "2" "5" "*" "(" "a" "-" Konst ")" ")"
-"x" "*" "(" "x" "+" "2" "5" "*" "(" "a" "-" "b" ")" ")"
+Term ⇒ Term "*" Term ⇒ Var "*" Term ⇒ "x" "*" Term ⇒ "x" "*" "(" Term ")" ⇒ "x" "*" "(" Term "+" Term ")" ⇒ "x" "*" "(" Var "+" Term ")" ⇒ "x" "*" "(" "x" "+" Term ")" ⇒ "x" "*" "(" "x" "+" Term "*" Term")" ⇒ "x" "*" "(" "x" "+" Konst "*" Term")" ⇒ "x" "*" "(" "x" "+" Zahl "*" Term")" ⇒ "x" "*" "(" "x" "+" Zahl Ziffer "*" Term")" ⇒ "x" "*" "(" "x" "+" Ziffer Ziffer "*" Term")" ⇒ "x" "*" "(" "x" "+" "2" Ziffer "*" Term")" ⇒ "x" "*" "(" "x" "+" "2" "5" "*" Term")" ⇒ "x" "*" "(" "x" "+" "2" "5" "*" Term")" ⇒ "x" "*" "(" "x" "+" "2" "5" "*" "(" Term ")" ")" ⇒ "x" "*" "(" "x" "+" "2" "5" "*" "(" Term "-" Term ")" ")" ⇒ "x" "*" "(" "x" "+" "2" "5" "*" "(" Konst "-" Term ")" ")" ⇒ "x" "*" "(" "x" "+" "2" "5" "*" "(" "a" "-" Term ")" ")" ⇒ "x" "*" "(" "x" "+" "2" "5" "*" "(" "a" "-" Konst ")" ")" ⇒ "x" "*" "(" "x" "+" "2" "5" "*" "(" "a" "-" "b" ")" ")"
 
 c)
 S = ("a"|"a"S"a"|S"a");
 
 Aufgabe 2
 a)
+S ⇒ aB ⇒ aaBB ⇒ aabB ⇒ aabbS ⇒ aabbbA ⇒ aabbbaS ⇒ aabbbaaB ⇒ aabbbaaaBB ⇒ aabbbaaabB ⇒ aabbbaaabb
 b)
+L(G2) = {a^n b^n | n > 0}
 c)
+G3 = ({a, b, c}, {S, A, B}, {S → AB|ε, A → AA|a, B → bBc| bc}, S)
+S ⇒ AB ⇒ AAB ⇒ aAB ⇒ aaB ⇒ aabBc ⇒ aabbBcc ⇒ aabbbBccc ⇒ aabbbbcccc
 d)
+S ⇒ aSBC ⇒ aaBCBC ⇒ aaBBCC ⇒ aabBCC ⇒ aabbCC ⇒ aabbcC ⇒ aabbcc
