@@ -5,36 +5,32 @@ import java.util.HashSet;
 
 /**
  * @author Daniel Capkan, Matrikelnummer: 3325960, st156303@stud.uni-stuttgart.de
- * @author Mario Scheich, Matrikelnummer: 3232655 , st151491@stud.uni-stuttgart.de
+ * @author Mario Scheich, Matrikelnummer: 3232655, st151491@stud.uni-stuttgart.de
  * @author Florian Walcher, Matrikelnummer: 3320185, st156818@stud.uni-stuttgart.de
  */
 public class UserManager {
 
+	String username;
+	String password;
+	HashMap<String, String> map = new HashMap<String, String>();
+	
 	public UserManager() {
-		//TODO fill in your initialization code here
-		
-		// create standard user
-		addUser("admin", "letmein");
+		addUser("admin", "password");
 		promoteUser("admin");
 	}
 	
 	/**
 	 * getter for the currently logged in user
-	 *
 	 * @return returns the name of user as String
 	 */
 	public String getCurrentUser() {
-		//TODO
 		return "";
 	}
 	
 	/**
 	 * function to add a user
-	 * 
-	 * @param name
-	 *            is the name of the new user
-	 * @param pass
-	 *            is the password of the new user
+	 * @param name - is the name of the new user
+	 * @param pass - is the password of the new user
 	 */
 	public void addUser(String name, String pass) {
 		//TODO
@@ -42,9 +38,7 @@ public class UserManager {
 	
 	/**
 	 * makes a user an admin user
-	 *
-	 * @param name
-	 *            is the name of the user to promote
+	 * @param name - is the name of the user to promote
 	 */
 	public void promoteUser(String name) {
 		//TODO
@@ -60,7 +54,6 @@ public class UserManager {
 	
 	/**
 	 * @param name the username to look up
-	 *
 	 * @return true if the user exists
 	 */
 	public boolean hasUser(String name) {
@@ -70,11 +63,8 @@ public class UserManager {
 	
 	/**
 	 * login a existing user
-	 *
-	 * @param name
-	 *            is the name of the user to login
-	 * @param pass
-	 *            is the password of the user to login
+	 * @param name - is the name of the user to login
+	 * @param pass - is the password of the user to login
 	 */
 	public boolean login(String name, String pass) {
 		//TODO

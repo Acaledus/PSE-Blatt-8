@@ -7,7 +7,7 @@ import java.security.NoSuchAlgorithmException;
 /**
  * class which serves methods to generate hashes
  * @author Daniel Capkan, Matrikelnummer: 3325960, st156303@stud.uni-stuttgart.de
- * @author Mario Scheich, Matrikelnummer: 3232655 , st151491@stud.uni-stuttgart.de
+ * @author Mario Scheich, Matrikelnummer: 3232655, st151491@stud.uni-stuttgart.de
  * @author Florian Walcher, Matrikelnummer: 3320185, st156818@stud.uni-stuttgart.de
  * @version 1.0
  */
@@ -15,11 +15,8 @@ public class Hash {
 	
 	/**
 	 * Method to generate a Hash based on a String encoded with UTF-8
-	 * 
 	 * Original-Author: http://m2tec.be/blog/2010/02/03/java-md5-hex-0093
-	 * 
-	 * @param string
-	 *               is the string to generate the hash from
+	 * @param string - is the string to generate the hash from
 	 * @return returns the hash
 	 */
 	public static String hash(String string) {

@@ -10,7 +10,7 @@ import de.unistuttgart.iaas.icetea.player.Song;
 /**
  * Class which connects to the BasicPlayer and is used to control it
  * @author Daniel Capkan, Matrikelnummer: 3325960, st156303@stud.uni-stuttgart.de
- * @author Mario Scheich, Matrikelnummer: 3232655 , st151491@stud.uni-stuttgart.de
+ * @author Mario Scheich, Matrikelnummer: 3232655, st151491@stud.uni-stuttgart.de
  * @author Florian Walcher, Matrikelnummer: 3320185, st156818@stud.uni-stuttgart.de
  * @version 1.0
  */
@@ -39,9 +39,9 @@ public class CInterface {
 	 * @return the chosen item
 	 */
 	private int printMainMenu() {
-		System.out.println("HauptmenÃ¼:");
-		System.out.println("1. Lied hinzufÃ¼gen");
-		System.out.println("2. Playlist hinzufÃ¼gen");
+		System.out.println("Hauptmenü:");
+		System.out.println("1. Lied hinzufügen");
+		System.out.println("2. Playlist hinzufügen");
 		System.out.println("   -");
 		System.out.println("3. Lied abspielen");
 		System.out.println("4. Playlist abspielen");
@@ -51,7 +51,7 @@ public class CInterface {
 		System.out.println("7. Pause");
 		System.out.println("8. Stop");
 		System.out.println("   -");
-		System.out.println("9. BenutzermenÃ¼");
+		System.out.println("9. Benutzermenü");
 		System.out.println("   -");
 		System.out.println("0. Programm beenden");
 
@@ -103,14 +103,14 @@ public class CInterface {
 
 		// Print the new menu for populating playlist
 		while (input != 0) {
-			System.out.println("FÃ¼ge Lieder zu " + name + " hinzu:");
+			System.out.println("Füge Lieder zu " + name + " hinzu:");
 			System.out.println("");
 			System.out.println("1. Lied aus der Datenbank");
 			System.out.println("2. Neues Lied");
 			System.out.println("   -");
 			System.out.println("3. Zeige Lider von " + name);
 			System.out.println("   -");
-			System.out.println("0. ZurÃ¼ck zum HauptmenÃ¼");
+			System.out.println("0. Zurück zum Hauptmenü");
 
 			input = readInt();
 
@@ -155,7 +155,7 @@ public class CInterface {
 		}
 
 		System.out.println("");
-		System.out.println("0. ZurÃ¼ck");
+		System.out.println("0. Zurück");
 
 		int input = readInt();
 
@@ -190,7 +190,7 @@ public class CInterface {
 		}
 
 		System.out.println("");
-		System.out.println("0. ZurÃ¼ck");
+		System.out.println("0. Zurück");
 
 		int input = readInt();
 
