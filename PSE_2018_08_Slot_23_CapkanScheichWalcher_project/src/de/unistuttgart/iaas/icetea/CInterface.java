@@ -1,11 +1,13 @@
 package de.unistuttgart.iaas.icetea;
 
+import java.util.HashMap;
 import java.util.Scanner;
 
 import de.unistuttgart.iaas.icetea.player.Player;
 import de.unistuttgart.iaas.icetea.player.PlayerState;
 import de.unistuttgart.iaas.icetea.player.Playlist;
 import de.unistuttgart.iaas.icetea.player.Song;
+import de.unistuttgart.iaas.icetea.user.Hash;
 import de.unistuttgart.iaas.icetea.user.UserManager;
 
 /**
@@ -16,17 +18,20 @@ import de.unistuttgart.iaas.icetea.user.UserManager;
  * @version 1.0
  */
 public class CInterface {
-
+	
+	UserManager manager = new UserManager();
 	/** scanner is used to read user input from console */
 	private Scanner scan;
 
 	/** Used for media management and playback */
 	private Player player;
 	
-	UserManager manager = new UserManager();
-	boolean loggedIn = false;
-	String username;
-
+	//TODO add suitable attribute
+	/**can be 0. not logged in, 1. logged in, 2. admin */
+	protected String username;
+	private String password;
+	private HashMap<String, String> map = new HashMap<String, String>();
+	private boolean login = false;
 
 	/**
 	 * Constructor initializes scanner and player and starts the menu loop
@@ -34,6 +39,7 @@ public class CInterface {
 	public CInterface() {
 		this.scan = new Scanner(System.in);
 		this.player = new Player();
+		map.put("admin", Hash.hash("password"));
 		run();
 	}
 
@@ -43,22 +49,51 @@ public class CInterface {
 	 * @return the chosen item
 	 */
 	private int printMainMenu() {
-		System.out.println("Hauptmenü:");
-		System.out.println("1. Lied hinzufügen");
-		System.out.println("2. Playlist hinzufügen");
-		System.out.println("   -");
-		System.out.println("3. Lied abspielen");
-		System.out.println("4. Playlist abspielen");
-		System.out.println("   -");
-		System.out.println("5. Play");
-		System.out.println("6. Skip");
-		System.out.println("7. Pause");
-		System.out.println("8. Stop");
-		System.out.println("   -");
-		System.out.println("9. Benutzermenü");
-		System.out.println("   -");
-		System.out.println("0. Programm beenden");
-		return readInt();
+		if(login == false) {
+			return 0;
+			
+		} else if(manager.isAdmin()) {
+			System.out.println("Hauptmenue:");
+			System.out.println("1. Lied hinzufuegen");
+			System.out.println("2. Playlist hinzufuegen");
+			System.out.println("   -");
+			System.out.println("3. Lied abspielen");
+			System.out.println("4. Playlist abspielen");
+			System.out.println("   -");
+			System.out.println("5. Play");
+			System.out.println("6. Skip");
+			System.out.println("7. Pause");
+			System.out.println("8. Stop");
+			System.out.println("   -");
+			System.out.println("9. Benutzermenue");
+			System.out.println("   -");
+			System.out.println("0. Programm beenden");
+			return readInt();
+			
+		}  else if(manager.hasUser(username)) {
+			System.out.println("Hauptmenue:");
+			System.out.println("1. Lied hinzufuegen");
+			System.out.println("2. Playlist hinzufuegen");
+			System.out.println("   -");
+			System.out.println("3. Lied abspielen");
+			System.out.println("4. Playlist abspielen");
+			System.out.println("   -");
+			System.out.println("5. Play");
+			System.out.println("6. Skip");
+			System.out.println("7. Pause");
+			System.out.println("8. Stop");
+			System.out.println("   -");
+			System.out.println("9. Abmelden");
+			System.out.println("   -");
+			System.out.println("0. Programm beenden");
+			return readInt();
+			
+		} else {
+			System.err.println("Ein Fehler ist aufgetreten, dieser Text sollte nicht erscheinen.");
+			return 0;
+		}
+		
+		
 	}
 
 	/**
@@ -71,12 +106,17 @@ public class CInterface {
 		System.out.println("Neues Lied:");
 		System.out.println("");
 		System.out.println("Bitte gib den Pfad zur Datei an");
+
 		String path = readStringWithSpaces();
+		
 		System.out.println("");
 		System.out.println("Bitte gib den Titel des Liedes ein");
+		
 		String name = readStringWithSpaces();
+		
 		Song song = new Song(name, path);
 		this.player.addSong(song);
+
 		return song;
 	}
 
@@ -101,14 +141,14 @@ public class CInterface {
 
 		// Print the new menu for populating playlist
 		while (input != 0) {
-			System.out.println("Füge Lieder zu " + name + " hinzu:");
+			System.out.println("Fuege Lieder zu " + name + " hinzu:");
 			System.out.println("");
 			System.out.println("1. Lied aus der Datenbank");
 			System.out.println("2. Neues Lied");
 			System.out.println("   -");
 			System.out.println("3. Zeige Lider von " + name);
 			System.out.println("   -");
-			System.out.println("0. Zurück zum Hauptmenü");
+			System.out.println("0. Zurueck zum Hauptmenue");
 
 			input = readInt();
 
@@ -153,7 +193,7 @@ public class CInterface {
 		}
 
 		System.out.println("");
-		System.out.println("0. Zurück");
+		System.out.println("0. Zurueck");
 
 		int input = readInt();
 
@@ -188,7 +228,7 @@ public class CInterface {
 		}
 
 		System.out.println("");
-		System.out.println("0. Zurück");
+		System.out.println("0. Zurueck");
 
 		int input = readInt();
 
@@ -210,7 +250,8 @@ public class CInterface {
 	 * @return returns the choice of the user as an Integer
 	 */
 	private int printUserMenu() {
-		if(loggedIn == false) {
+		//TODO work more here
+		if(login == false) {
 			System.out.println("1. Anmelden");
 			System.out.println("0. Programm beenden");
 			int in = readInt();
@@ -220,18 +261,19 @@ public class CInterface {
 			return in;
 		} 
 		else if(manager.isAdmin()) {
-			System.out.println("Benutzermenü:");
+			System.out.println("Benutzermenue:");
 			System.out.println("2. Abmelden");
-			System.out.println("3. Benutzer hinzufügen");
+			System.out.println("3. Benutzer hinzufuegen");
 			System.out.println("4. Benutzer promovieren");
-			System.out.println("5. Benutzer löschen");
+			System.out.println("5. Benutzer loeschen");
 			System.out.println("   -");
-			System.out.println("0. Zurück");
+			System.out.println("0. Zurueck");
 			
 			return readInt();
 		} else if(manager.hasUser(username)) {
 			return 2;
 		} else {
+			System.err.println("Irgendwas stimmt hier nicht...");
 			return 0;
 		}
 	}
@@ -280,16 +322,17 @@ public class CInterface {
 	 */
 	private void run() {
 		int input = -1;
+
 		do {
 			input = printMainMenu();
-			while(loggedIn == false) {
+			while(login == false) {
 				runUserMenu();	
 				input = printMainMenu();
 			}
+			
 			try {
 				switch (input) {
 				case 0:
-					System.out.println("Programm wird beendet.");
 					this.player.stop();
 					break;
 				case 1:
@@ -325,11 +368,11 @@ public class CInterface {
 					this.player.stop();
 					break;
 				case 9:
-					runUserMenu();
+						runUserMenu();
 					break;
 				default:
 					System.out.print(input);
-					System.out.println(" ist nicht Vorhanden, versuchen sie es erneut:");
+					System.out.println(" ist nicht Vorhanden, versuchen Sie es erneut:");
 					System.out.println("\n\n");
 					break;
 				}
@@ -344,68 +387,95 @@ public class CInterface {
 	 * prints the user menu and takes care of the wanted actions, e.g.: login, logout, etc.
 	 */
 	private void runUserMenu() {
+		//TODO work here
+		
 		int input = printUserMenu();
 		switch (input) {
-		case 1: 
-			if(loggedIn == true) {
-				System.out.println("Sie sind bereits angemeldet.");
+		case 1: //Anmelden
+			if(login == true) {
+				System.out.println("Ungueltige Eingabe.");
 				break;
 			}
-			System.out.println("Bitte geben Sie den Benutzernamen an.");
-			String username = readStringWithSpaces();
+			System.out.println("Bitte geben Sie ihren Benutzernamen an.");
+			username = readStringWithSpaces();
 			if(manager.hasUser(username)) {
-				System.out.println("Bitte geben Sie das Passwort an.");
-				String password = readStringWithSpaces();
+				System.out.println("Bitte geben Sie ihr Passwort an.");
+				password = Hash.hash(readStringWithSpaces());
 				if(manager.login(username, password)) {
-					loggedIn = true;
+					login = true;
 				}
 			} else {
 				System.out.println("Dieser Benutzername ist nicht vergeben.");
 			}
 			break;
-		case 2: 
+		case 2: //Abmelden
 			manager.logout();
-			loggedIn = false;
+			login = false;
 			System.out.println("Sie sind abgemeldet.");
 			break;
-		case 3:
-				System.out.println("Bitte geben Sie einen Benutzernamen ein.");
+		case 3: //Account erstellen
+			int pswcreate = 1;
+			while(pswcreate == 1) {
+				System.out.println("Bitte geben Sie den Benutzernamen ein.");
 				username = readStringWithSpaces();
 				if(manager.hasUser(username) == false) {
-					System.out.println("Bitte geben Sie ein Passwort ein.");
-					String password = readStringWithSpaces();
-					manager.addUser(username, password);
-					System.out.println("Erstellung erfolgreich.");
+					System.out.println("Bitte geben Sie das Passwort ein.");
+					password = readStringWithSpaces();
+					System.out.println("Bitte bestätigen Sie ihre Eingabe indem Sie das Passwort wiederholen.");
+					String rep = readStringWithSpaces();
+					if(password.equals(rep)) {
+						manager.addUser(username, password);
+						System.out.println("Erstellung erfolgreich.");
+						pswcreate = 0;
+					} else {
+						System.out.println("Falsche Eingabe.");
+					}
 				} else {
 					System.out.println("Dieser Benutzername ist bereits vergeben.");
 				}
+			}
 			break;
-		case 4: 
-			System.out.println("Welchen Benutzer möchten Sie promovieren?");
-			String user = readStringWithSpaces();
-			if(manager.admins.contains(user) == false) {
-				manager.promoteUser(user);
-				System.out.println(user + " ist jetzt Admin.");
+		case 4: //Benutzer promovieren 
+			System.out.println("Welchen Benutzer moechten Sie promovieren?");
+			String prom = readStringWithSpaces();
+			if(manager.users.contains(prom) == false) {
+				manager.promoteUser(prom);
+				System.out.println(prom + " ist jetzt Admin.");
 			} else {
 				System.out.println("Dieser Benutzer ist bereits Admin.");
 			}
 			break;
-		case 5: 
-			System.out.println("Welchen Benutzer möchten Sie löschen?");
-			String delete = readStringWithSpaces();
-			if(manager.hasUser(delete) == false) {
-				System.out.println("Dieser Benutzer existiert nicht.");
+		case 5: //Benutzer loeschen
+			System.out.println("Welchen Benutzer moechten Sie loeschen?");
+			String del = readStringWithSpaces();
+			if(manager.hasUser(del) == false) {
+				System.out.println("Diesen Benutzer gibt es nicht.");
 				break;
 			}
-			manager.deleteUser(delete);
+			if(manager.users.contains(del)) {
+				System.out.println("Dieser Benutzer ist ein Administrator. Sind Sie sicher, dass Sie ihn löschen möchte?");
+				System.out.println("1.Ja, 0.Nein");
+				if(readInt() == 1) {
+					if(manager.getCurrentUser().equals(del)) {
+						login = false;
+					}
+					manager.deleteUser(del);
+				} else {
+					break;
+				}
+			} else {
+				manager.deleteUser(del);
+			}
 			break;
 		case 0:
-			System.out.println("Zurück zum Hauptmenü.");
+			System.out.println("Zurueck zum Hauptmenue.");
 			break;
 		default:
-			System.out.println("Ungültige Eingabe.");
+			System.out.println("Ungueltige Eingabe.");
 			break;
 		}
+		 
+		
 	}
 
 	/**
